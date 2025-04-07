@@ -13,8 +13,8 @@ public class Car implements CarRequirements {
      * @param capacity   The maximum number of passengers the car can hold.
 
  */
-public Car(ArrayList<Passenger> passengers, int Capacity) {
-    this.passengers = new ArrayList<Passenger>(passengers); 
+public Car(int Capacity) {
+    this.passengers = new ArrayList<Passenger>(); 
     this.capacity = capacity; 
 }
 
@@ -28,6 +28,11 @@ public int getCapacity(){
 
 }
 
+public ArrayList<Passenger> getPassengers(){
+    return passengers;
+}
+
+
 /**
  * Returns the number of seats remaining in the car.
  *
@@ -40,6 +45,7 @@ public int seatsRemaining(){
 }
 
 
+
 /**
  * Adds a passenger to the car if there is available space.
  *
@@ -47,17 +53,16 @@ public int seatsRemaining(){
  * @return True if the passenger was added successfully, false otherwise.
  */
 public Boolean addPassenger(Passenger p){
-    if (seatsRemaining() > 0){
+    if (seatsRemaining() >= 0 || passengers.contains(p)){
         for (Passenger i : this.passengers){
-            if(i.getName().equals(p.getName())){ 
-                 //isthis supposed to begetname instead cause we're thinking about encapsulation - but also name was never declared a s a private attribute?
-//this just checks that there isn't the same person boarding twice cause it loops through the list and then compares each - is this right?
                 return false;
             }
         }
         
         this.passengers.add(p);
-        return true;    }}
+        return true;
+    }
+
 
 
 /**
@@ -91,52 +96,61 @@ public void printManifest(){
     }
     else{
         System.out.println("This car is empty.") ;
-    }
-    public static void main(String[] args) {
+    }}
+public static void main(String[] args) {
         // Create some passengers
-        Passenger passenger1 = new Passenger("Alice");
-        Passenger passenger2 = new Passenger("Bob");
-        Passenger passenger3 = new Passenger("Charlie");
-        Passenger passenger4 = new Passenger("David");
-
+        Passenger passenger1 = new Passenger("Meron");
+        Passenger passenger2 = new Passenger("Nahian");
+        Passenger passenger3 = new Passenger("Lyna");
+        Passenger passenger4 = new Passenger("Ayesha");
+    
         // Create an ArrayList of passengers
         ArrayList<Passenger> initialPassengers = new ArrayList<>();
         initialPassengers.add(passenger1);
         initialPassengers.add(passenger2);
-
+    
         // Create a car with a capacity of 4 and initial passengers
-        Car myCar = new Car(initialPassengers, 4);
-
+        Car myCar = new Car( 4);
+    
         // Print the initial manifest
-        System.out.println("Initial Manifest:");
-        myCar.printManifest();
-
-        // Add more passengers
+        //System.out.println("Initial Manifest:");
+        // myCar.printManifest();
+    
+        // // Add more passengers
         myCar.addPassenger(passenger3);
         myCar.addPassenger(passenger4);
-
+        System.out.println(myCar.passengers.size());
+        System.out.println(myCar.seatsRemaining());
+        
+        
+    
         // Print the updated manifest
         System.out.println("\nUpdated Manifest after adding more passengers:");
         myCar.printManifest();
-
+    
         // Attempt to add a duplicate passenger
         Passenger passenger5 = new Passenger("Alice");
         myCar.addPassenger(passenger5);
-
+    
         System.out.println("\nManifest after attempting to add duplicate:");
         myCar.printManifest();
-
+    
         // Remove a passenger
         myCar.removePassenger(passenger2);
-
+    
         // Print the manifest after removal
         System.out.println("\nManifest after removing Bob:");
         myCar.printManifest();
-
+    
         //Create an empty car and test the empty manifest
-        Car emptyCar = new Car(new ArrayList<Passenger>(), 3);
+        Car emptyCar = new Car( 3);
         System.out.println("\nEmpty car manifest:");
         emptyCar.printManifest();
+
+
+    }
 }
-}
-}
+
+
+
+

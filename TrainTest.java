@@ -9,14 +9,14 @@ public class TrainTest {
     // Engine Tests
     @Test
     public void testEngineConstructor() {
-        FuelType fuelType = FuelType.ELECTRIC; // Assuming you have an ELECTRIC FuelType
+        FuelType fuelType = FuelType.ELECTRIC; 
         double currentFuel = 50.0;
         double maxFuel = 100.0;
         Engine engine = new Engine(fuelType, currentFuel, maxFuel);
 
         assertEquals(fuelType,engine.getFuelType());//bro what does this method want from me
-        assertEquals(currentFuel,engine.getCurrentFuel());
-        assertEquals(maxFuel,engine.getMaxFuel());
+        assertEquals(currentFuel,engine.getCurrentFuel(),0.5);
+        assertEquals(maxFuel,engine.getMaxFuel(),0.5);
         
     }
 
@@ -24,11 +24,11 @@ public class TrainTest {
     public void testEngineGo() {
         Engine engine = new Engine(FuelType.ELECTRIC,60.0,100.0);
         engine.go();
-        assertEquals(40.0,engine.getCurrentFuel());
+        assertEquals(40.0,engine.getCurrentFuel(),0.5);
         engine.go();
-        assertEquals(20.0, engine.getCurrentFuel());
+        assertEquals(20.0, engine.getCurrentFuel(),0.5);
         engine.go();
-        assertFalse(assertEquals(0.0,engine.getCurrentFuel()));
+        assertEquals(0.0,engine.getCurrentFuel(),0.5);
     
         
     }
@@ -36,7 +36,7 @@ public class TrainTest {
     // Car Tests
     @Test
     public void testCarAddPassenger() {
-        Car car new Car(new Arraylist<>(),4);
+        Car car  = new Car(4);
         Passenger p1 = new Passenger("Lyna");
         assertTrue(car.addPassenger(p1));
         assertEquals(3,car.seatsRemaining());
@@ -53,10 +53,13 @@ public class TrainTest {
         Passenger p3 = new Passenger("Ayesha");
         Passenger p5 = new Passenger("Nahian");
 
+        //declare passengers
+        ArrayList<Passenger> passengers = new ArrayList<Passenger>();
+
         passengers.add(p5);
         passengers.add(p3); //should i be using an accessor?
 
-        Car car = new Car(passengers,4);
+        Car car = new Car(4);
         assertTrue(car.removePassenger(p3));
 
         assertEquals(1, car.seatsRemaining());
@@ -75,7 +78,7 @@ public class TrainTest {
     @Test
     public void testPassengerBoardCarWithSpace() {
         Passenger p5 = new Passenger("Nahian");
-        Car car = new Car(new ArrayList<>(), 1);
+        Car car = new Car( 1);
 
         p5.boardCar(car);
         assertEquals(0,car.seatsRemaining());
@@ -91,7 +94,7 @@ public class TrainTest {
         Passenger p5 = new Passenger("Nahian");
         Passenger p2 = new Passenger("Meron");
 
-        Car car = new Car(new ArrayList<>(), 2);
+        Car car = new Car( 2);
 
         p2.boardCar(car);
         p3.boardCar(car);
@@ -114,7 +117,7 @@ public class TrainTest {
         Train train = new Train(fuelType, fuelCapacity, nCars, passengerCapacity);
 
       // 
-        assertEquals(nCars + 1, train.getCars.size()); //check if cars is an array or an arraylist
+        assertEquals(nCars + 1, train.getCars().size()); 
 
       //is this right to check if a car isn't empty first then to check if it isn't 
         assertNotNull(train.getCar(0)); // Check the first car
