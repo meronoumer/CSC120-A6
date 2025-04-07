@@ -23,7 +23,6 @@ public class Train implements TrainRequirements{
    this.engine = new Engine(fuelType, fuelCapacity, fuelCapacity);
    this.cars = new ArrayList <Car>() ;
 
-   //what did you mean the current fuel level after creating a train is incorrect?                
    
    for (int i = 0; i <= nCars;i++){
       this.cars.add(new Car(passengerCapacity)); //im confused cause it keeps telling me the constructor is undefines
@@ -47,7 +46,6 @@ public class Train implements TrainRequirements{
   * @return The Car object at the specified index.
   */
   
-  //also which method am I missing bros im so confused
  public Car getCar(int i){
    if(i<cars.size() && i>=0){
       return this.cars.get(i);
@@ -57,7 +55,6 @@ public class Train implements TrainRequirements{
     
  }
 
- //should i be adding a getcars method here?
  public ArrayList getCars(){
    return this.cars;
  }
@@ -96,30 +93,54 @@ public class Train implements TrainRequirements{
   * Prints the passenger manifest of the train.
   */  
  public void printManifest(){
-   boolean isEmpty = false;
+   boolean isEmpty = true;
    for (Car car:cars){
       if (car.seatsRemaining()<car.getCapacity()){
-         isEmpty = true;
-         System.out.println("This car is empty.");}
+         isEmpty = false;
+         car.printManifest();}
 
       }
       
-      if(!isEmpty){
-         for (Car car:cars) {
-            car.printManifest();
-
+      if(isEmpty){ 
+            System.out.println("This train is empty.");
       }
 
-      }
-      else{
-         isEmpty = false;
-         System.out.println("This train is empty.");
-      }
          
    
       
    
- }}
+ }
+ public static void main(String[] args) {
+   Train myTrain = new Train(FuelType.ELECTRIC, 100.0, 2, 5);
+
+   System.out.println("Initial Train Manifest:");
+   myTrain.printManifest();
+   System.out.println();
+
+   Car firstCar = myTrain.getCar(0);
+   if (firstCar != null) {
+       firstCar.addPassenger(new Passenger("Meron"));
+       firstCar.addPassenger(new Passenger("Nahian"));
+   }
+
+   System.out.println("Train Manifest after adding passengers to the first car:");
+   myTrain.printManifest();
+   System.out.println();
+
+   Car secondCar = myTrain.getCar(1);
+   if (secondCar != null) {
+       secondCar.addPassenger(new Passenger("Charlie"));
+   }
+
+   System.out.println("Train Manifest after adding passengers to both cars:");
+   myTrain.printManifest();
+}
+
+
+
+
+
+}
 
 
 

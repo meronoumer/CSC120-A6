@@ -24,6 +24,7 @@
     public void boardCar(Car c){
         if (c.addPassenger(this)){
             System.out.println(this);
+            
         }
         else
         {
@@ -47,9 +48,10 @@
 
     public String getName(){
         return name;
-         // i'm losing it bro
 
     }
+
+
     public String toString() {
         return name; //does this fix the whole print manifest spiiting out hexcodes thing?
     }

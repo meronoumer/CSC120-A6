@@ -13,9 +13,9 @@ public class Car implements CarRequirements {
      * @param capacity   The maximum number of passengers the car can hold.
 
  */
-public Car(int Capacity) {
+public Car(int carCapacity) {
     this.passengers = new ArrayList<Passenger>(); 
-    this.capacity = capacity; 
+    this.capacity = carCapacity; 
 }
 
 /**
@@ -53,7 +53,7 @@ public int seatsRemaining(){
  * @return True if the passenger was added successfully, false otherwise.
  */
 public Boolean addPassenger(Passenger p){
-    if (seatsRemaining() >= 0 || passengers.contains(p)){
+    if (seatsRemaining() <= 0 || passengers.contains(p)){
         for (Passenger i : this.passengers){
                 return false;
             }
@@ -72,16 +72,22 @@ public Boolean addPassenger(Passenger p){
  * @return True if the passenger was removed successfully, false otherwise.
  */
 public Boolean removePassenger(Passenger p){
-    if(this.passengers.contains(p)){
-        this.passengers.remove(p);
-        return true;//is this the same earlier where two of the exact same people can be onboard with the same name could be on board and is it only checking for just one of them instead of looping through so can i solve it the same way as earlier
+    
+    boolean removed = false;
+    for (int i = this.passengers.size() - 1; i >= 0; i--) {
+
+        if (this.passengers.get(i).equals(p)){
+            this.passengers.remove(i);
+            removed = true;
+            break;
+            
+        }
+    }
+        return removed;
         
     }
-    else{
-        return false;
-    }
 
-}
+
 
 /**
  * Prints the passenger manifest of the car.
@@ -96,60 +102,60 @@ public void printManifest(){
     }
     else{
         System.out.println("This car is empty.") ;
-    }}
-public static void main(String[] args) {
-        // Create some passengers
-        Passenger passenger1 = new Passenger("Meron");
-        Passenger passenger2 = new Passenger("Nahian");
-        Passenger passenger3 = new Passenger("Lyna");
-        Passenger passenger4 = new Passenger("Ayesha");
+  }}
+// public static void main(String[] args) {
+//         // Create some passengers
+         Passenger passenger1 = new Passenger("Meron");
+//         Passenger passenger2 = new Passenger("Nahian");
+//         Passenger passenger3 = new Passenger("Lyna");
+//         Passenger passenger4 = new Passenger("Ayesha");
     
-        // Create an ArrayList of passengers
-        ArrayList<Passenger> initialPassengers = new ArrayList<>();
-        initialPassengers.add(passenger1);
-        initialPassengers.add(passenger2);
+//         // Create an ArrayList of passengers
+//         ArrayList<Passenger> initialPassengers = new ArrayList<>();
+//         initialPassengers.add(passenger1);
+//         initialPassengers.add(passenger2);
     
-        // Create a car with a capacity of 4 and initial passengers
-        Car myCar = new Car( 4);
+//         // Create a car with a capacity of 4 and initial passengers
+//         Car myCar = new Car( 4);
     
-        // Print the initial manifest
-        //System.out.println("Initial Manifest:");
-        // myCar.printManifest();
+//         // Print the initial manifest
+//         //System.out.println("Initial Manifest:");
+//         // myCar.printManifest();
     
-        // // Add more passengers
-        myCar.addPassenger(passenger3);
-        myCar.addPassenger(passenger4);
-        System.out.println(myCar.passengers.size());
-        System.out.println(myCar.seatsRemaining());
+//         // // Add more passengers
+//         myCar.addPassenger(passenger3);
+//         myCar.addPassenger(passenger4);
+//         System.out.println(myCar.passengers.size());
+//         System.out.println(myCar.seatsRemaining());
         
         
     
-        // Print the updated manifest
-        System.out.println("\nUpdated Manifest after adding more passengers:");
-        myCar.printManifest();
+//         // Print the updated manifest
+//         System.out.println("\nUpdated Manifest after adding more passengers:");
+//         myCar.printManifest();
     
-        // Attempt to add a duplicate passenger
-        Passenger passenger5 = new Passenger("Alice");
-        myCar.addPassenger(passenger5);
+//         // Attempt to add a duplicate passenger
+//         Passenger passenger5 = new Passenger("Alice");
+//         myCar.addPassenger(passenger5);
     
-        System.out.println("\nManifest after attempting to add duplicate:");
-        myCar.printManifest();
+//         System.out.println("\nManifest after attempting to add duplicate:");
+//         myCar.printManifest();
     
-        // Remove a passenger
-        myCar.removePassenger(passenger2);
+//         // Remove a passenger
+//         myCar.removePassenger(passenger2);
     
-        // Print the manifest after removal
-        System.out.println("\nManifest after removing Bob:");
-        myCar.printManifest();
+//         // Print the manifest after removal
+//         System.out.println("\nManifest after removing Bob:");
+//         myCar.printManifest();
     
-        //Create an empty car and test the empty manifest
-        Car emptyCar = new Car( 3);
-        System.out.println("\nEmpty car manifest:");
-        emptyCar.printManifest();
+//         //Create an empty car and test the empty manifest
+//         Car emptyCar = new Car( 3);
+//         System.out.println("\nEmpty car manifest:");
+//         emptyCar.printManifest();
 
 
-    }
-}
+//     }
+ }
 
 
 
